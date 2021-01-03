@@ -18,6 +18,7 @@ class HistoryListViewController: UIViewController {
 
     lazy private var mTable: UITableView = {
         let table = UITableView()
+        table.delegate = self
         table.register(HistoryListCell.self, forCellReuseIdentifier: "HisCell")
         return table
     }()
@@ -51,17 +52,19 @@ class HistoryListViewController: UIViewController {
             }
             .disposed(by: bag)
         mTable.rx.modelSelected(Record.self)
-            .subscribe({[weak self] e in
-                let hdVC = HistoryDetailViewController()
-                hdVC.record = e.element
-                self?.navigationController?.pushViewController(hdVC, animated: true)
-            })
+            .subscribe { [weak self] in
+                let hdvc = HistoryDetailViewController()
+                hdvc.record = $0.element
+                self?.navigationController?.pushViewController(hdvc, animated: true)
+            }
             .disposed(by: bag)
-        
-        
+
         viewModel.fetch()
     }
+}
 
-
-
+extension HistoryListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
 }

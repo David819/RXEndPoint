@@ -95,6 +95,7 @@ class CurrentViewController: UIViewController {
 
         viewModel.publishedRcds
             .bind(to: mTable.rx.items(cellIdentifier: KeyValueCell.Identifier, cellType: KeyValueCell.self)) { row, rcd, cell in
+                cell.selectionStyle = .none
                 cell.keyLabel.text = rcd.timeInterval.toDateString()
                 cell.valueLabel.text = String(data: rcd.jsonData ?? Data(), encoding: .utf8)
             }
