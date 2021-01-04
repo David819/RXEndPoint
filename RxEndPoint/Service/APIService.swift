@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-let token = "22dcd832a13dfaec475a3ab063140cf9dd504ab1"
+let token = "442174a35859dde22566bb856d1d4935353a08e7"
 let urlStr = "https://api.github.com/users/defunkt?access_token="
 
 extension TimeInterval {
